@@ -1,8 +1,5 @@
 const fs = require("fs");
 const path = require("path");
-const yargs = require("yargs");
-
-yargs.scriptName("task-tracker").usage("$0 <cmd> [args]");
 
 // Function to check if data file exists, and create it if not
 const checkAndCreateDataFile = () => {
@@ -67,50 +64,52 @@ const removeTask = (taskId) => {
   fs.writeFileSync(path.resolve(__dirname, "data.json"), JSON.stringify(newTasks));
 };
 
+// Get command and arguments from process.argv
+const [,, command, ...args] = process.argv;
+
 // Command to list tasks
-yargs
-  .command("list", "List all tasks", {}, (argv) => {
-    const tasks = listTasks(argv.status);
-    if (!tasks.length) {
-      console.log("No tasks found");
-      return;
-    }
-    // Display tasks in a table format
-    if (argv.status) {
-      console.table(tasks, ["id", "content"]);
-    } else {
-      console.table(tasks, ["id", "description", "status"]);
-    }
-  })
-  .option("status", {
-    alias: "s",
-    description: "Filter tasks by status",
-    type: "string",
-  });
+if (command === "list") {
+  const status = args[0];
+  const tasks = listTasks(status);
+  if (!tasks.length) {
+    console.log("No tasks found");
+    return;
+  }
+  // Display tasks in a table format
+  if (status) {
+    console.table(tasks, ["id", "description"]);
+  } else {
+    console.table(tasks, ["id", "description", "status"]);
+  }
+}
 
 // Command to add a task
-yargs.command("add <content>", "Add a task", {}, (argv) => {
-  addTask(argv.content);
-});
+if (command === "add") {
+  const content = args[0];
+  addTask(content);
+}
 
 // Command to update a task
-yargs.command("update <taskId> <description>", "Update a task", {}, (argv) => {
-  updateTask(argv.taskId, { content: argv.description });
-});
+if (command === "update") {
+  const taskId = args[0];
+  const description = args[1];
+  updateTask(taskId, { content: description });
+}
 
 // Command to remove a task
-yargs.command("remove <taskId>", "Remove a task", {}, (argv) => {
-  removeTask(argv.taskId);
-});
+if (command === "remove") {
+  const taskId = args[0];
+  removeTask(taskId);
+}
 
 // Command to mark a task as in progress
-yargs.command("mark-in-progress <taskId>", "Mark a task as in progress", {}, (argv) => {
-  updateTask(argv.taskId, { status: "in-progress" });
-});
+if (command === "mark-in-progress") {
+  const taskId = args[0];
+  updateTask(taskId, { status: "in-progress" });
+}
 
 // Command to mark a task as done
-yargs.command("mark-done <taskId>", "Mark a task as done", {}, (argv) => {
-  updateTask(argv.taskId, { status: "done" });
-});
-
-yargs.help().argv;
+if (command === "mark-done") {
+  const taskId = args[0];
+  updateTask(taskId, { status: "done" });
+}
