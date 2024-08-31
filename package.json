@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/lmtNoLimit/task-tracker-cli-node/issues"
   },
-  "homepage": "https://github.com/lmtNoLimit/task-tracker-cli-node#readme"
+  "homepage": "https://github.com/lmtNoLimit/task-tracker-cli-node#readme",
+  "dependencies": {
+    "yargs": "^17.7.2"
+  }
 }
