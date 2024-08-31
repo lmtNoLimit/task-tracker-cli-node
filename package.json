@@ -1,0 +1,19 @@
+{
+  "name": "task-tracker-cli-node",
+  "version": "1.0.0",
+  "description": "Task Tracker CLI",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/lmtNoLimit/task-tracker-cli-node.git"
+  },
+  "author": "lmtnolimit",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lmtNoLimit/task-tracker-cli-node/issues"
+  },
+  "homepage": "https://github.com/lmtNoLimit/task-tracker-cli-node#readme"
+}
