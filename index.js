@@ -71,6 +71,10 @@ const removeTask = (taskId) => {
 yargs
   .command("list", "List all tasks", {}, (argv) => {
     const tasks = listTasks(argv.status);
+    if (!tasks.length) {
+      console.log("No tasks found");
+      return;
+    }
     // Display tasks in a table format
     if (argv.status) {
       console.table(tasks, ["id", "content"]);
